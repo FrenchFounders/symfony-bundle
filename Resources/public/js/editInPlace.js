@@ -128,6 +128,14 @@ var TranslationBundleEditInPlace = function(saveUrl) {
             return editor.toolbox().tools(tools);
         }
     });
+    
+    // Use plain translations to avoid parameters to be replaced
+    ContentEdit.Root.get().bind('focus', function(element) {
+        element.domElement().innerHTML = element.attr('data-plain');
+    });
+    ContentEdit.Root.get().bind('blur', function(element) {
+        element.attr('data-plain', element.domElement().innerHTML);
+    });
 
     // Any click on links / button... should prevent default if editing is on
     document.addEventListener('click', function(event) {
